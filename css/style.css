@@ -25,30 +25,6 @@ margin-right: auto;
     padding: 0.5em;
 }
 
-/*#health {
-	width: 170.7px;
-    height:168px;
-
-}
-
-#econ {
-	width: 197px;
-    height:168px;
-
-}
-
-#edu {
-	width: 172px;
-    height:168px;
-
-}
-
-#earth {
-	width: 211px;
-    height:168px;
-
-}*/
-
 /* Text styles */
 
 h1 {
@@ -63,6 +39,7 @@ h2{
 
 p {
     font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+    color:#752332;
 	}
 
 ul {
@@ -79,7 +56,7 @@ a {
     background-color: white;
     border: none;
     color: #eb6f86;
-    padding:0px;
+    padding:5px;
     margin: 15px 32px;
     text-align: center;
     text-decoration: underline;
@@ -90,7 +67,7 @@ a {
     background-color: #f69daa;
     border: none;
     color: white;
-    padding:0px;
+    padding:5px;
     margin: 15px 32px;
     text-align: center;
     text-decoration: underline;
@@ -164,7 +141,6 @@ header{
     display: flex;
     flex-direction: row;
     font-size: larger;
-    color:#752332;
 }
 
 #platform{
@@ -193,5 +169,4 @@ header{
 #facts {
 	padding: 2em;
     font-size: small;
-    color: #752332;
 }
