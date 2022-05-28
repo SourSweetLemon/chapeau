@@ -1,221 +1,79 @@
-//reading Fridge info (from comm-fridge-data.js) and populating a div with it
-createFridges();
-
-function createFridges(){
-
-    let body = document.querySelector("body");
-    let wrapper = document.createElement("div");
-    wrapper.className = "wrapper";
-    body.appendChild(wrapper);
-
-    //Iterating through all fridge items to create enough 'fridge buttons'
-    for (let fridge of fridges){
-        
-        let name = fridge.name;
-        let address = fridge.address.street;
-        let phone = fridge.contact_phone;
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Vote Chapeau!</title>
+        <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" >
+        <link rel="stylesheet" href="webfontkit-20220525-144732/stylesheet.css" type="text/css" charset="utf-8" />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    </head>
     
-        let fridgeBlock = document.createElement("div");
-
-        let fridgeImg = document.createElement("img");
-        fridgeImg.className = "fridgeImg";
-        fridgeImg.src = "images/fridge.svg";
+    <body>
     
-        fridgeBlock.appendChild(fridgeImg);
-        
-        let fridgeName = document.createElement("p");
-        fridgeName.id = "fName";
-        fridgeName.textContent = name;
-        fridgeBlock.appendChild(fridgeName);
+    <header>
+            <div class="container_head">
+              <div class="wrapper_head">
+              <div id="row"><a href="https://www.elections.on.ca/en.html"> <button id="vote">VOTE NOW</button></a><img src="images/pawparty.png" id="logo"></div><a href="https://www.ohsre.ca/sslpage.aspx?pid=184"><button>DONATE</button></a></div>
+            </div>
+    </header>
+        <div class="container">
+            <div class="wrapper">
+                <div id="info">
+                    <img id="sitting" src="images/sitting.png" alt="Chapeau sitting down, wearing his pink harness.">
+                    <div id="one">
+                        <img id="info_img" src="images/white_logo.png" alt="Chapeau">
+                        
+                        <p>With so many parties and platforms to choose from, why vote Chapeau?
+                        </p>
+                        <ul>
+                            <li>Has been serving the public for over two thirds of his life</li>
+                            <li>Held high ranking roles, such as the CKW (Chief Keyboard Warmer)</li>
+                            <li>Take personal hygiene and grooming very seriously</li>
+                            <li>Looks great in pink</li>
+                        </ul>
+                        
+                    </div>
+                </div>
 
-        let fridgeAdd = document.createElement("p");
-        fridgeAdd.textContent = address;
-        fridgeBlock.appendChild(fridgeAdd);
-
-        let fridgePhone = document.createElement("p");
-        fridgePhone.textContent = phone;
-        fridgeBlock.appendChild(fridgePhone);
-
-        wrapper.appendChild(fridgeBlock);
-
-        fridgeBlock.className = "availFridges";
-        fridgeBlock.id = name;
-    }
-}
-
-//Add event listener to each available fridge button
-let availableFridges = document.getElementsByClassName("availFridges");
-for (let aFridge of availableFridges){
-    aFridge.addEventListener("click", makeVisible);
-}
-
-
-//Hide available fridge buttons when clicked, and show other item menu elements
-function makeVisible(event){
-    
-    let selectedFridge = event.currentTarget.id;
-    let f = fridges.filter(item => item.name == selectedFridge);
-
-    //Hiding buttons
-    for (let aFridge of availableFridges){
-        aFridge.style.display = "none";
-    }
-
-    //Show left-hand elements
-    document.getElementById("header").innerHTML = "Items in the " + selectedFridge;
-    document.getElementById("container").style.display = "flex";
-
-    //Populate menu elements
-    document.getElementById("menu").textContent = f[0].name + "\r\n" + f[0].address.street + "\r\n" + f[0].contact_phone;
-
-    let progress = document.createElement("div");
-    progress.id = "progress";
-    document.getElementById("menu").appendChild(progress);
-
-    let cap = document.createElement("div");
-    cap.id = "capacity";
-    cap.style.width = f[0].capacity + "%";
-    progress.appendChild(cap);
-    cap.textContent = f[0].capacity+ " %";
-    
-    //Creating array of all dept types
-    var fridgeItems = f[0].items;
-    let typeArray = [];
-    let cartItems = {};
-
-
-    Object.keys(fridgeItems).forEach(function eachKey(key){
-        typeArray.push(fridgeItems[key].type);
-    });
-
-    let kvType = {};
-    typeArray.forEach(function (x) { kvType[x] = (kvType[x] || 0) + 1; });
-
-    //Create UL and populate it with the dept type / amount
-    let menuList = document.createElement("ul");
-    document.getElementById("menu").appendChild(menuList);
-
-    //add event listener for each dept type
-    for (let key in kvType){
-        if (kvType.hasOwnProperty(key)){
-            let department = document.createElement("li");
-            department.id = key;
-            department.textContent = key + "(" + kvType[key] + ")";
-            menuList.appendChild(department);
-            department.addEventListener("click", createItems);
-
-        }
-    }
-
-    //Create and populate middle column
-    function createItems(event){
-        
-        let selectedDept =  event.currentTarget.id;
-        let itemsDiv = document.getElementById("items");
-        itemsDiv.textContent = "";
-        let itemFormat = document.createElement("table");
-
-        itemsDiv.appendChild(itemFormat);
-
-        //Create table and populate with item images, information and add/remove buttons
-        Object.keys(fridgeItems).forEach(function eachKey(key){
-    
-            if(selectedDept == fridgeItems[key].type){
-
-                //Table elements
-                let format = document.createElement("tr");
-                let imgFormat = document.createElement("th");
-                let infoFormat = document.createElement("th");
-
-                //Food images
-                let itemImg = document.createElement("img");
-                itemImg.className = "itemImg";
-                itemImg.src = fridgeItems[key].img;
-                imgFormat.appendChild(itemImg);
-
-                //Food info
-                let itemInfo = document.createElement("p");
-                itemInfo.textContent = fridgeItems[key].name + "\r\nQuantity: " + fridgeItems[key].quantity;
-                itemInfo.className = "itemInfo";
-                infoFormat.appendChild(itemInfo);
-
-                //Food add / remove buttons and counter
-                let itemPicker = document.createElement("div");
-                itemPicker.className = "itemPicker";
-                infoFormat.appendChild(itemPicker);
-
-                let plus = document.createElement("div");
-                plus.className = "pickerButton";
-                plus.textContent = "+";
-                plus.id = key;
-                plus.setAttribute("name",fridgeItems[key].name);
-                itemPicker.appendChild(plus);
-                plus.addEventListener("click", handlePlus);
-
-                var amount = document.createElement("div");
-                amount.className = "amount";
-                amount.textContent = "0";
-                amount.id = key +"_amount";
-                itemPicker.appendChild(amount);
-
-                let minus = document.createElement("div");
-                minus.textContent = "-";
-                minus.className = "pickerButton";
-                minus.id = key;
-                itemPicker.appendChild(minus);
-                minus.addEventListener("click", handleMinus);
-                
-                itemFormat.appendChild(format);
-
-                format.append(imgFormat, infoFormat);
-            }
-        });
-
-        var cartDiv = document.getElementById("picked");
-
-        //Handler for adding an item
-        function handlePlus(event){
-
-            const item = event.currentTarget.id;     
+              </div>
+              <div id="platform">
+                <div class="card">
+                  <img src="images/health.png" alt="A small cartoon icon of chapeau in a nurse cap with a bottle of pills" id="health">
+                <div class="card" id="health">
+                  <img id ="health_icon" src="images/health.png" alt="A small cartoon icon of chapeau in a nurse cap with a bottle of pills">
+                  <h2>HEALTHCARE PLAN</h2>
+                  <p>Chapeau believes in quality, accessible healthcare for all. <br />And less visits to the vet.</p>
+                </div>
+                <div class="card">
+                  <img src="images/economics.png" alt="A small cartoon icon of Chapeau in a tie with a line chart titled 'treats' trending upwards" id="econ">
+                <div class="card" id="econ">
+                  <img id="econ_icon" src="images/economics.png" alt="A small cartoon icon of Chapeau in a tie with a line chart titled 'treats' trending upwards">
+                  <td><h2>ECONOMIC PLAFORM</h2>
+                  <p>Buy low, sell high! More treats!</p>
+                </div>
+                <div class="card">
+                  <img src="images/education.png" alt="A small cartoon icon of Chapeau in a schoolbag with an apple on his head" id="edu">
+                <div class="card" id="edu">
+                  <img id="edu_icon" src="images/education.png" alt="A small cartoon icon of Chapeau in a schoolbag with an apple on his head">
+                  <h2>EDUCATION ROADMAP</h2>
+                  <p>Did you know Chapeau can sit on command? It's amazing what a good education can do.</p>
+                </div>
+                <div class="card"><img src="images/climate.png" alt="A small cartoon icon of Chapeau wrestling with the Earth like a ball of yarn" id="earth">
+                <div class="card" id="climate"><img id="climate_icon" src="images/climate.png" alt="A small cartoon icon of Chapeau wrestling with the Earth like a ball of yarn">
+                  <h2>CLIMATE STRATEGY</h2>
+                  <p>Chapeau loves nature, and preserving it.*</p>
+                </div>
+              </div>
+            </div>
+                <div id="facts">
+                    <hr/>
+                    <p>*Did you know that cats are the number one cause of death for songbirds in Canada? That's right, they account for <a href="https://catsandbirds.ca/research/estimated-number-of-birds-killed-by-house-cats/#:~:text=Blancher%20estimates%20that%20cats%20kill,the%20rest%20by%20feral%20cats.">100 - 350 million bird deaths a year in Canada alone.</a> 
+                    Keeping cats indoors can save lives, and not just for birds- indoor cats have a staggering 12-18 year lifespan in comparison to their outdoor counterparts (2-5 years). Outdoor cats are susceptible to fights, disease, and car collisions. 
+                    <br/><br/>
+                    Cats with an adventurous spirit (like Chapeau!) can be harness trained, and supervised on a lead to ensure no birds or other small animals are harmed. Catios (outdoor enclosures for cats to keep other animals safe) are another great option.
+                    <br/><br/>
+                    Ensure your pets are spayed and neutered, and keep cats indoors to help keep kittens off the streets!
+                    </p>
+                </div>
             
-            if(!(item in cartItems)) {
-                cartItems[item] = 0;  
-                document.getElementById(item+"_amount").textContent = "0";
-            }
-
-            if(cartItems[item] < fridgeItems[item].quantity) {
-                cartItems[item] = cartItems[item] + 1;
-                document.getElementById(item+"_amount").textContent = cartItems[item];
-            }
-            drawCart();
-        }
-
-        //Handler for removing an item
-        function handleMinus(event){
-            const item = event.currentTarget.id; 
-
-            if((item in cartItems) && (cartItems[item] > 0)) {
-                cartItems[item] = cartItems[item] - 1
-                document.getElementById(item+"_amount").textContent = cartItems[item];
-            }
-            else {
-                // do nothing, it's minus
-                document.getElementById(item+"_amount").textContent = "0";
-            }
-            drawCart();
-        }
-
-        //Handler to update cart in left-hand column
-        function drawCart(){
-            cartDiv.textContent = "Items you've picked :";
-
-            Object.keys(cartItems).map(function(k, i) {
-                if(cartItems[k] > 0) {
-                    const element = document.createElement("p");
-                    element.textContent = cartItems[k] + ' x ' + fridgeItems[k].name;
-                    cartDiv.appendChild(element);
-                }
-            })
-        }   
-    }   
-}
+    </body>
+</html>
