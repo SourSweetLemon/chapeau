@@ -171,6 +171,7 @@ header{
     
     .wrapper_head{
         width: 100%;
+        background-color: white;
     }
 
     button{
@@ -196,6 +197,10 @@ header{
 
     .card {
         width: 100%;
+    }
+
+    .card img {
+        width: 50%;
     }
 	
 	#sitting {

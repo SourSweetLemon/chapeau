@@ -13,13 +13,13 @@ let climate_div = document.getElementById("climate");*/
 function overHandler(event){
     let currentCard = event.currentTarget.id;
     let currentIcon = currentCard + "_icon";
-    let source = "https://votechapeau.ca/images/h"+currentCard+".png";
+    let source = "images/h"+currentCard+".png";
     document.getElementById(currentIcon).src = source;
 }
 
 function outHandler(event){
     let currentCard = event.currentTarget.id;
     let currentIcon = currentCard + "_icon";
-    let source = "https://votechapeau.ca/images/"+currentCard+".png";
+    let source = "images/"+currentCard+".png";
     document.getElementById(currentIcon).src = source;
 }
