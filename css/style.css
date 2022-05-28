@@ -131,11 +131,9 @@ header{
 
 .wrapper {
     width: 50em;
- 
     margin:auto;
 	margin-top:2%;
     padding:.5em;
-    border-radius: 10px;
 }
 
 #info {
@@ -170,16 +168,34 @@ header{
 }
 
 @media screen and (max-width: 1000px){
+    
+    .wrapper_head{
+        width: 100%;
+    }
+
+    button{
+        font-size: 3em;
+        margin-right:1em;
+    }
+
+    #logo {
+        width: 200px;
+    }
+
     p {
-        font-size: 125%;
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 5em;
     }
 
     li {
-        font-size: 125%;
+        font-size: 2em;
     }
 
     .card {
-        width: 500px;
+        width: 100%;
     }
 	
 	#sitting {
@@ -187,10 +203,13 @@ header{
 		}
 		
 	#info_img{
-		width:25%;
+		max-width:100%;
 		}
 		
 	#one{
-		flex-shrink:3;}
+		display:flex;
+		flex-direction: column;
+        padding-left: 2em;
+		}
 
 }
