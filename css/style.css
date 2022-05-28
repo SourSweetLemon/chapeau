@@ -52,7 +52,6 @@ a {
     color:#eb6f86;
 }
 
-
 #vote{
     background-color: white;
     border: none;
@@ -79,6 +78,7 @@ button {
     border: none;
     color: white;
     padding: 15px 32px;
+    margin-left: 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -167,4 +167,19 @@ header{
 #facts {
 	padding: 2em;
     font-size: small;
+}
+
+@media screen and (max-width: 850px){
+    p {
+        font-size: 125%;
+    }
+
+    li {
+        font-size: 125%;
+    }
+
+    .card {
+        width: 500px;
+    }
+
 }
