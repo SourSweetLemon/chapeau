@@ -169,7 +169,7 @@ header{
     font-size: small;
 }
 
-@media screen and (max-width: 850px){
+@media screen and (max-width: 1000px){
     p {
         font-size: 125%;
     }
@@ -181,5 +181,16 @@ header{
     .card {
         width: 500px;
     }
+	
+	#sitting {
+		width:25%;
+		}
+		
+	#info_img{
+		width:25%;
+		}
+		
+	#one{
+		flex-shrink:3;}
 
 }
